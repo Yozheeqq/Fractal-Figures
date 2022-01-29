@@ -1,0 +1,86 @@
+﻿<Window x:Class="fractals.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+        xmlns:local="clr-namespace:fractals"
+        mc:Ignorable="d"
+        Title="Fractals" Height="1080" Width="1920" MinHeight="540" MinWidth="960"
+        MaxHeight="1080" MaxWidth="1920"
+        Name="mainWindow">
+
+    <Grid>
+        <Menu HorizontalAlignment="Left" VerticalAlignment="Top" 
+              Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить картинку" Click="SaveCanvasToFile">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel HorizontalAlignment="Left" Grid.Column="0"
+                    Margin="0,20,0,0" 
+                    Background="#fadad7" Width="200" x:Name="canvas"
+                    Grid.Row="1">
+            <!--Выберите фрактал-->
+            <Label Content="Выберите фрактал" HorizontalAlignment="Left"
+                   Margin="10" Grid.Row="0" Height="30"/>
+            <ComboBox Width="100" HorizontalAlignment="Left" Grid.Row="1"
+                    Margin="20, 5, 0, 0" Height="20" Name="selectFractal"
+                      SelectionChanged="SelectFractalChanged">
+                <TextBlock Text="Фрактальное дерево"/>
+                <TextBlock Text="Кривая коха"/>
+                <TextBlock Text="Ковер Серпинского"/>
+                <TextBlock Text="Треугольник Серпинского"/>
+                <TextBlock Text="Множество Кантора"/>
+            </ComboBox>
+            <Label Content="Глубина рекурсии" HorizontalAlignment="Left"
+                Margin="10, 0, 0, 0" Grid.Row="2" Height="30"/>
+            <TextBox Text="" TextWrapping="Wrap" Width="120" HorizontalAlignment="Left"
+                Margin="20, 0, 0, 0" Grid.Row="3" Height="20" x:Name="recursionDepth"/>
+            <!--Выбор цвета-->
+            <Label Content="Выбор цвета" Margin="10"/>
+            <Button Content="Начальный цвет" Width="100" 
+                    HorizontalAlignment="Left" Margin="20, 0, 0, 0"
+                    Click="OnStartColorSelecting"/>
+            <Button Content="Конечный цвет" Width="100"
+                    HorizontalAlignment="Left" Margin="20, 10, 0, 0"
+                    Click="OnEndColorSelecting"/>
+            <!--Начать отрисовку-->
+            <Button Content="Начать отрисовку" HorizontalAlignment="Center"
+                    Margin="20" x:Name="startDrawingButton" Click="StartDrawingClick"/>
+            <!--Размер окна-->
+            <Label Content="Размер окна" Grid.Row="4" Margin="0" 
+                Height="30">
+            </Label>
+            <TextBox x:Name="winHeight" Text="Высота" TextWrapping="Wrap" 
+                Width="120" Grid.Row="5" Margin="20, 0, 0, 0" Height="20"
+                     HorizontalAlignment="Left"/>
+            <TextBox x:Name="winWidth" Text="ширина" TextWrapping="Wrap" 
+                Width="120" Grid.Row="6" Margin="20, 10, 0, 0" Height="20"
+                     HorizontalAlignment="Left"/>
+            <!--Задать размер окна-->
+            <Button Content="Задать размер окна" Margin="10" Click="OnWinSizeChanging"/>
+            <!--Фрактальное дерево-->
+            <Label Content="Задать параметры дерева" Height="30" Margin="10"
+                   Visibility="Hidden" x:Name="setOptionsFractalTree"/>
+            <Label x:Name="ratioText" Content="Отношение отрезков: 0.5" Visibility="Hidden"/>
+            <Slider x:Name="ratioSlider" Maximum="1" Minimum="0.1" Value="0.5" Visibility="Hidden"
+                    Width="120" Margin="20, 10, 0, 0" ValueChanged="RatioChanged"/>
+            <Label x:Name="startAngleText" Content="Начальный угол: 0" Visibility="Hidden"/>
+            <Slider x:Name="startAngleSlider" Maximum="90" Minimum="0" Value="0" Visibility="Hidden"
+                    Width="120" Margin="20, 10, 0, 0" ValueChanged="StartAngleChanged" />
+            <Label x:Name="nextAngleText" Content="Следующий угол: 45" Visibility="Hidden"/>
+            <Slider x:Name="nextAngleSlider" Maximum="90" Minimum="10" Value="45" Visibility="Hidden"
+                    Width="120" Margin="20, 10, 0, 0" ValueChanged="NextAngleChanged"/>
+
+        </StackPanel>
+        <Canvas HorizontalAlignment="Stretch" Grid.Column="1"
+                Margin="203, 0, 0, 0" 
+                Background="#f7f1f0"  x:Name="fractalCanvas"
+                Grid.Row="1" Height="1080" Width="1717">
+            
+        </Canvas>
+    </Grid>
+    
+</Window>
